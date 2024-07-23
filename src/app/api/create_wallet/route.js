@@ -1,37 +1,30 @@
-import { W3SSdk } from "@circle-fin/w3s-pw-web-sdk";
+import { W3SSdk } from '@circle-fin/w3s-pw-web-sdk'
 
-export const create_wallet = () => {
-  const sdk = new W3SSdk();
-  console.log("created the sdk");
-  const challengeId = process.env.NEXT_PUBLIC_CHALLENGE_ID;
+const sdk = new W3SSdk()
 
-  sdk.setAppSettings({
-    appId: process.env.NEXT_PUBLIC_APP_ID,
-  });
-  console.log("set the app settings");
-  sdk.setAuthentication({
-    userToken: process.env.NEXT_PUBLIC_USER_TOKEN,
-    encryptionKey: process.env.NEXT_PUBLIC_ENCRYPTION_KEY,
-  });
-  console.log("set the authentication");
+sdk.setAppSettings({
+  appId: '<Your App Id>',
+})
+sdk.setAuthentication({
+  userToken: '<Your user token>',
+  encryptionKey: '<Your encryption key>',
+})
 
-  sdk.execute(challengeId, (error, result) => {
-    console.log("INSIDE THE EXECUTE METHOD");
-    if (error) {
-      console.log(
+sdk.execute(challengeId, (error, result) => {
+  if (error) {
+    console.log(
         `${error?.code?.toString() || "Unknown code"}: ${
-          error?.message ?? "Error!"
+            error?.message ?? 'Error!'
         }`
-      );
+    )
 
-      return;
-    }
+    return
+  }
 
-    console.log(`Challenge: ${result.type}`);
-    console.log(`status: ${result.status}`);
+  console.log(`Challenge: ${result.type}`)
+  console.log(`status: ${result.status}`)
 
-    if (result.data) {
-      console.log(`signature: ${result.data?.signature}`);
-    }
-  });
-};
+  if (result.data) {
+    console.log(`signature: ${result.data?.signature}`)
+  }
+})
