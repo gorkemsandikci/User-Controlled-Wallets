@@ -1,5 +1,5 @@
 "use server";
-import { v4 as uuidv4 } from "uuid";
+import {v4 as uuidv4} from "uuid";
 import axios from "axios";
 
 export const initialize_user = async () => {
@@ -13,7 +13,12 @@ export const initialize_user = async () => {
             Authorization: `Bearer  TEST_API_KEY:538b8a315375d1946984b561e0119eb9:05d3535b35f0b251eec3e51d7a68c4ab`,
             "X-User-Token": `${process.env.NEXT_PUBLIC_USER_TOKEN}`,
         },
-        data: { idempotencyKey: idempotencyKey, blockchains: ["MATIC-AMOY"] },
+        //data: { idempotencyKey: idempotencyKey, blockchains: ["MATIC-AMOY"] },
+        data: {
+            idempotencyKey: idempotencyKey,
+            accountType: "SCA",
+            blockchains: ["MATIC-AMOY"],
+        },
     };
 
     return axios
